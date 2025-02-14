@@ -13,7 +13,7 @@ export default function Navbar() {
         <div className="flex items-center justify-between h-16">
           {/* Logo */}
           <div className="flex-shrink-0">
-            <h1 className="text-xl font-bold text-gray-900 dark:text-white">TechTrio Automation</h1>
+            <h1 className="text-xl font-bold text-gray-900 dark:text-white">TechTrio Changed</h1>
           </div>
 
           {/* Desktop menu */}
