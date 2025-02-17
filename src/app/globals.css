@@ -80,3 +80,11 @@ body {
     @apply bg-background text-foreground;
   }
 }
+
+
+
+/* Dark mode styles */
+.dark {
+  background-color: #1a202c; /* bg-gray-900 */
+  color: #ffffff; /* text-white */
+}
