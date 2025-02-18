@@ -5,7 +5,6 @@
   export default function Hero() {
     return (
       <>
-      
         <div className="marqueecontainer w-full h-screen relative overflow-hidden mt-10">
           <div className="heading absolute top-[7%] left-1/2 -translate-x-1/2 w-full px-4 md:w-80 text-center">
             <h1 className="text-base md:text-xl font-regular text-gray-900 dark:text-white" 
