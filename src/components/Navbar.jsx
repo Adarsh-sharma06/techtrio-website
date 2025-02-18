@@ -1,10 +1,21 @@
 "use client";
 import ThemeToggle from "./ThemeToggle";
+import Image from "next/image";
 import Link from "next/link";
 import { useState } from "react";
+import { useTheme } from "next-themes";
+import { usePathname } from "next/navigation";
+import { TextEffectWithPreset } from "@/components/TextEffect";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const { theme } = useTheme();
+  const pathname = usePathname();
+
+  const logoSrc =
+    theme === "dark"
+      ? "https://res.cloudinary.com/ddztecdya/image/upload/v1739845925/zjzj0ytpqzkbplrgiams.png"
+      : "https://res.cloudinary.com/ddztecdya/image/upload/v1739845925/jrzjovv25dgvbdaywc5p.png";
 
   return (
     <nav className="fixed top-0 left-0 w-full z-50 bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-md">
@@ -13,21 +24,36 @@ export default function Navbar() {
           {/* Logo */}
           <div className="flex-shrink-0">
             <Link href="/" className="text-xl font-bold text-gray-900 dark:text-white">
-              TechTrio
+              <Image
+                width={120}
+                height={90}
+                className="w-full h-full object-cover"
+                src={logoSrc}
+                alt="TechTrio Logo"
+              />
             </Link>
           </div>
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
-            {["Home", "About", "Contact", "Services"].map((item) => (
-              <Link 
-                key={item}
-                href={item === "Home" ? "/" : `/${item.toLowerCase()}`} 
-                className="text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
-              >
-                {item}
-              </Link>
-            ))}
+            {["Home", "About", "Contact", "Services"].map((item) => {
+              const linkPath = item === "Home" ? "/" : `/${item.toLowerCase()}`;
+              const isActive = pathname === linkPath;
+
+              return (
+                <Link
+                  key={item}
+                  href={linkPath}
+                  className={`transition-colors ${
+                    isActive
+                      ? "text-yellow-500 font-bold text-lg underline"
+                      : "text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  }`}
+                >
+                  <TextEffectWithPreset>{item}</TextEffectWithPreset>
+                </Link>
+              );
+            })}
             <ThemeToggle />
           </div>
 
@@ -51,22 +77,31 @@ export default function Navbar() {
         </div>
 
         {/* Mobile Menu */}
-        <div 
+        <div
           className={`md:hidden overflow-hidden transition-all duration-300 ease-in-out ${
             isMenuOpen ? "max-h-50 opacity-100" : "max-h-0 opacity-0"
           }`}
         >
           <div className="px-2 pt-2 pb-3 space-y-1 sm:px-3">
-            {["Home", "About", "Contact", "Services"].map((item) => (
-              <Link
-                key={item}
-                href={item === "Home" ? "/" : `/${item.toLowerCase()}`}
-                className="block px-3 py-2 rounded-md text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white transition-colors"
-                onClick={() => setIsMenuOpen(false)} // Close menu on click
-              >
-                {item}
-              </Link>
-            ))}
+            {["Home", "About", "Contact", "Services"].map((item) => {
+              const linkPath = item === "Home" ? "/" : `/${item.toLowerCase()}`;
+              const isActive = pathname === linkPath;
+
+              return (
+                <Link
+                  key={item}
+                  href={linkPath}
+                  className={`block px-3 py-2 rounded-md transition-colors ${
+                    isActive
+                      ? "text-yellow-500 font-bold text-lg underline"
+                      : "text-gray-700 hover:text-gray-900 dark:text-gray-300 dark:hover:text-white"
+                  }`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  <TextEffectWithPreset>{item}</TextEffectWithPreset>
+                </Link>
+              );
+            })}
           </div>
         </div>
       </div>
