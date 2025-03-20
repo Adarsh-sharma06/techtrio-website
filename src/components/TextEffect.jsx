@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextEffect } from "@/components/ui/text-effect";
+import { TextEffect } from "./../components/ui/text-effect";
 
 export function TextEffectWithPreset({ children }) {
   const [isHovered, setIsHovered] = useState(false);

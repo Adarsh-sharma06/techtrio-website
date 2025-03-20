@@ -1,5 +1,5 @@
 import { ThemeProvider } from "next-themes";
-import Navbar from "@/components/Navbar";
+import Navbar from "./../components/Navbar";
 import "./globals.css";
 
 export const metadata = {
@@ -14,6 +14,7 @@ export default function RootLayout({ children }) {
         <ThemeProvider attribute="class" defaultTheme="system" enableSystem>
           <Navbar />
           {children}
+          
         </ThemeProvider>
       </body>
     </html>

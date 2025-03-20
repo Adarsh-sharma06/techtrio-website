@@ -1,4 +1,4 @@
-import PhysicsCanvas from "@/components/PhysicsCanvas";
+import PhysicsCanvas from "./../../components/PhysicsCanvas";
 
 export default function About() {
   return (

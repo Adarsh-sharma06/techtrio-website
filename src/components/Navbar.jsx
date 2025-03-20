@@ -5,7 +5,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { useTheme } from "next-themes";
 import { usePathname } from "next/navigation";
-import { TextEffectWithPreset } from "@/components/TextEffect";
+import { TextEffectWithPreset } from "./../components/TextEffect";
 
 export default function Navbar() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
