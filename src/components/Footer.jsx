@@ -63,7 +63,7 @@ const Footer = () => {
                 href="/contact"
                 className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
               >
-                Let’s go
+              LET'S GO
                 <svg
                   className="ml-2 w-4 h-4 md:w-5 md:h-5"
                   viewBox="0 0 19 20"
@@ -180,7 +180,7 @@ const Footer = () => {
               href="/contact"
               className="inline-flex items-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 rounded-md transition"
             >
-              Contact Us
+              CONTACT US
               <svg
                 className="ml-2 w-4 h-4"
                 viewBox="0 0 19 20"

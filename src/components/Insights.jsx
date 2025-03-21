@@ -113,9 +113,32 @@ const Insights = () => {
         viewport={{ once: true }}
       >
         <Link href="/category/thought-leadership">
-          <button className="px-8 py-3 bg-gradient-to-r from-yellow-500 to-orange-500 text-white font-bold rounded-lg shadow-lg hover:scale-105 transition-transform duration-300 flex items-center gap-2">
-            View All Articles <span className="text-lg">↗</span>
-          </button>
+       
+
+         
+                      <div className="mt-6 md:mt-8 flex justify-center md:justify-start">
+              <Link
+                href="/contact"
+                className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
+              >
+              VIEW ALL ARTICLE
+                <svg
+                  className="ml-2 w-4 h-4 md:w-5 md:h-5"
+                  viewBox="0 0 19 20"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    d="M5.53848 13.7123L12.9631 6.28769M12.9631 6.28769V13.7123M12.9631 6.28769H5.53848"
+                    stroke="currentColor"
+                    strokeWidth="1.5"
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                  />
+                </svg>
+              </Link>
+            </div>
+
         </Link>
       </motion.div>
     </section>

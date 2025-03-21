@@ -267,6 +267,8 @@ export default function About() {
       }`}
     >
       <main className="flex-1">
+      <TestimonialSection />
+      <ContactForm />
         <section
           className={`relative w-full h-[80vh] mt-20 pt-10 ${
             isAtEnd ? "overflow-y-auto" : "overflow-hidden"
