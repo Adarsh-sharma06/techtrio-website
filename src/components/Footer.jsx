@@ -3,9 +3,26 @@
 import Image from "next/image";
 import Link from "next/link";
 import { useTheme } from "next-themes";
+import { motion } from "framer-motion";
+
+const sentenceVariants = {
+  hidden: { opacity: 1 },
+  visible: {
+    opacity: 1,
+    transition: { staggerChildren: 0.2 },
+  },
+};
+
+const wordVariants = {
+  hidden: { opacity: 0, y: 20 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.5 } },
+};
 
 const Footer = () => {
   const { theme } = useTheme();
+  const words = [
+    "Let's", "build", "a", "better", "future", "with"
+  ];
 
   return (
     <footer className="w-screen bg-white/80 dark:bg-gray-900/80 backdrop-blur-sm shadow-md py-8">
@@ -18,14 +35,27 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 max-w-custom mx-auto">
           {/* CTA Title */}
           <div className="md:w-1/2 text-center md:text-left">
-            <h3
-              className={`text-4xl md:text-5xl font-extrabold leading-tight ${
+            <motion.h3
+              className={`text-4xl md:text-5xl font-extrabold leading-tight tracking-widest ${
                 theme === "dark" ? "text-[#FFF9C4]" : "text-gray-900"
               }`}
+              variants={sentenceVariants}
+              initial="hidden"
+              whileInView="visible"
+              viewport={{ once: true }}
             >
-              Let&apos;s build a better future with{" "}
-              <span className="text-orange-500">Technology</span>.
-            </h3>
+              {words.map((word, index) => (
+                <motion.span key={index} variants={wordVariants} className="inline-block mx-1">
+                  {word}
+                </motion.span>
+              ))}
+              <motion.span
+                variants={wordVariants}
+                className="inline-block mx-1 text-yellow-500"
+              >
+                Technology.
+              </motion.span>
+            </motion.h3>
 
             {/* CTA Button */}
             <div className="mt-6 md:mt-8 flex justify-center md:justify-start">
@@ -59,14 +89,14 @@ const Footer = () => {
                 theme === "dark" ? "text-gray-400" : "text-gray-700"
               }`}
             >
-              Find out how TechTrio technology expertise can take your digital experience to the next level.
+              Find out how TechTrio’s technology expertise can take your digital experience to the next level.
             </p>
           </div>
         </div>
       </div>
 
       {/* Footer Content Row */}
-      <div className="max-w-custom mx-auto px-0">
+      <div className="max-w-custom mx-auto px-6">
         <div className="grid grid-cols-1 md:grid-cols-4 gap-6">
           {/* Services Section */}
           <div>
@@ -170,9 +200,7 @@ const Footer = () => {
         </div>
 
         {/* Divider */}
-        <div className="relative border-t border-gray-700 my-6">
-        
-        </div>
+        <div className="relative border-t border-gray-700 my-6"></div>
 
         {/* Footer Bottom */}
         <div className="flex flex-col md:flex-row justify-between items-center text-sm mt-10">

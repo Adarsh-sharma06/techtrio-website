@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "./../../../db/firebase"; // Adjust the import path as needed
+import { db } from "./../../db/firebase"; // Adjust the import path as needed
 
 export default function TestimonialSection() {
   const { resolvedTheme } = useTheme(); // Get the current theme
