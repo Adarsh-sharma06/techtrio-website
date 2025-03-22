@@ -1,6 +1,7 @@
 "use client";
 
 import Image from "next/image";
+import { usePathname } from "next/navigation";
 import Link from "next/link";
 import { useTheme } from "next-themes";
 import { motion } from "framer-motion";
@@ -20,6 +21,7 @@ const wordVariants = {
 
 const Footer = () => {
   const { theme } = useTheme();
+  const pathname = usePathname(); // ✅ Get current pathname
   const words = [
     "Let's", "build", "a", "better", "future", "with"
   ];
@@ -35,24 +37,22 @@ const Footer = () => {
         <div className="flex flex-col md:flex-row items-center justify-between gap-8 max-w-custom mx-auto">
           {/* CTA Title */}
           <div className="md:w-1/2 text-center md:text-left">
-            <motion.h3
+          <motion.h3
+              key={pathname} // ✅ Forces re-animation on page change
               className={`text-4xl md:text-5xl font-extrabold leading-tight tracking-widest ${
                 theme === "dark" ? "text-[#FFF9C4]" : "text-gray-900"
               }`}
               variants={sentenceVariants}
               initial="hidden"
               whileInView="visible"
-              viewport={{ once: true }}
+              viewport={{ once: false, amount: 0.5 }} // ✅ Re-animates on scroll
             >
               {words.map((word, index) => (
                 <motion.span key={index} variants={wordVariants} className="inline-block mx-1">
                   {word}
                 </motion.span>
               ))}
-              <motion.span
-                variants={wordVariants}
-                className="inline-block mx-1 text-yellow-500"
-              >
+              <motion.span variants={wordVariants} className="inline-block mx-1 text-yellow-500">
                 Technology.
               </motion.span>
             </motion.h3>

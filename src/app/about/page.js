@@ -261,6 +261,7 @@ export default function About() {
   }, [isAtEnd]);
 
   return (
+    
     <div
       className={`flex flex-col min-h-screen transition-colors duration-300 ${
         theme === "dark" ? "bg-black text-white" : "bg-white text-black"
@@ -388,6 +389,7 @@ export default function About() {
           <TestimonialSection />
           <ContactForm />
         </div>
+     
       </main>
     </div>
   );
