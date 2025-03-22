@@ -36,11 +36,9 @@ export default function Navbar() {
 
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
-<<<<<<< HEAD
+
             {["Home", "About", "Contact", "Services", "blogs"].map((item) => {
-=======
-            {["Home", "About", "Contact", "Services", ].map((item) => {
->>>>>>> Dheeraj
+
               const linkPath = item === "Home" ? "/" : `/${item.toLowerCase()}`;
               const isActive = pathname === linkPath;
 
@@ -111,8 +109,5 @@ export default function Navbar() {
       </div>
     </nav>
   );
-<<<<<<< HEAD
+
 }
-=======
-}
->>>>>>> Dheeraj

@@ -14,11 +14,10 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "firebase": "^11.5.0",
-<<<<<<< HEAD
+
     "googleapis": "^148.0.0",
-=======
-    "framer-motion": "^12.5.0",
->>>>>>> Dheeraj
+
+
     "gsap": "^3.12.7",
     "lucide-react": "^0.475.0",
     "matter-js": "^0.20.0",
@@ -27,7 +26,7 @@
     "next-themes": "^0.4.4",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-<<<<<<< HEAD
+
     "react-firebase-hooks": "^5.1.1",
     "react-hot-toast": "^2.5.2",
     "react-icons": "^5.5.0",
@@ -35,9 +34,7 @@
     "react-slick": "^0.30.3",
     "remark-gfm": "^4.0.1",
     "slick-carousel": "^1.8.1",
-=======
-    "react-hot-toast": "^2.5.2",
->>>>>>> Dheeraj
+
     "tailwind-merge": "^3.0.1",
     "tailwindcss-animate": "^1.0.7"
   },
