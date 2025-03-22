@@ -1,18 +1,17 @@
+
+import ContactForm from "./../components/ContactForm";
 import Hero from "../components/Hero";
+import TestimonialSection from "./../components/testimonial";
+import Insights from "./../components/Insights";
 
 export default function Home() {
   return (
-    <main className="flex min-h-screen flex-col items-center justify-between">
+    <main className="pt-16 min-h-screen">
+
       <Hero />
-     <div>
-        <h2 className="text-4xl text-center font-bold text-gray-800">
-          Welcome to the Next.js Tailwind CSS Starter
-        </h2>
-        <p className="text-lg text-center text-gray-600 mt-4">
-          Get started by editing{" "}
-          <code className="bg-gray-100 p-1">src/app/page.js</code>
-        </p>
-      </div>
+    <TestimonialSection/>
+    <Insights/>
+
     </main>
   );
 }

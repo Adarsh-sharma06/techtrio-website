@@ -1,13 +1,12 @@
 "use client";
 
 import { useState } from "react";
-<<<<<<< HEAD
-import { db } from "./../../../db/firebase"; // Adjust the import path as needed
+import { db } from "./../../db/firebase"; // Adjust the import path as needed
 import { collection, addDoc } from "firebase/firestore";
 import toast, { Toaster } from "react-hot-toast";
 import { useTheme } from "next-themes"; // Import useTheme
 
-export default function ContactPage() {
+export default function ContactForm() {
   const [selectedOption, setSelectedOption] = useState("quote"); // Default selected option
   const [formData, setFormData] = useState({
     name: "",
@@ -308,12 +307,3 @@ export default function ContactPage() {
     </div>
   );
 }
-=======
-import ContactForm from "../../components/ContactForm";
-
-export default function ContactPage() {
-  const [selectedOption, setSelectedOption] = useState("quote");
-
-  return <ContactForm formType={selectedOption} />;
-}
->>>>>>> Dheeraj
