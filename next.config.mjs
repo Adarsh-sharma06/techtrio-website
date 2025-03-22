@@ -1,6 +1,6 @@
-/** @type {import('next').NextConfig} */
+
 const nextConfig = {
-<<<<<<< HEAD
+
   images: {
     remotePatterns: [
       {
@@ -12,12 +12,7 @@ const nextConfig = {
 };
 
 export default nextConfig;
-=======
-    images: {
-      domains: ['res.cloudinary.com'],
-    },
-  };
+
+
   
-  export default nextConfig;
-  
->>>>>>> Dheeraj
+
