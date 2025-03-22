@@ -3,7 +3,6 @@
 import React, { useEffect } from "react";
 import TestimonialSection from "./../../components/testimonial";
 import ContactForm from "./../../components/ContactForm";
-import Footer from "./../../components/Footer";
 
 // Services List with Icons (Defined outside the component to avoid re-renders)
 const services = [
@@ -71,7 +70,7 @@ export default function Services() {
 
       {/* Contact Form */}
       <ContactForm />
-      <Footer/>
+   
     </main>
   );
 }
