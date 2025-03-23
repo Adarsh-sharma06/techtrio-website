@@ -3,7 +3,8 @@
 import React, { useEffect } from "react";
 import TestimonialSection from "./../../components/testimonial";
 import ContactForm from "./../../components/ContactForm";
-import AnimatedList from "./../../components/AnimatedList";
+
+import AnimationList from "./../../components/AnimationList";
 
 // Services List with Icons (Defined outside the component to avoid re-renders)
 const services = [
@@ -23,7 +24,9 @@ export default function Services() {
 
   return (
     <main className="pt-16 min-h-screen">
-      <AnimatedList/>
+
+<AnimationList/>
+
       {/* Services Section */}
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
@@ -69,9 +72,10 @@ export default function Services() {
 
       {/* Testimonial Section */}
       <TestimonialSection />
-
+        
       {/* Contact Form */}
       <ContactForm />
+
     </main>
   );
 }

@@ -8,5 +8,7 @@ export default function ContactPage() {
   const [selectedOption, setSelectedOption] = useState("quote");
 
   return <ContactForm formType={selectedOption} />;
+
 }
+
 
