@@ -20,7 +20,7 @@ const techItems = [
   "Full Stack Development",
   "Database Management",
 ];
-
+https://github.com/Adarsh-sharma06/techtrio-website.git
 const getRandomSubset = () => {
   const shuffled = [...techItems].sort(() => Math.random() - 0.5);
   return shuffled.slice(0, Math.floor(Math.random() * 5) + 2);
