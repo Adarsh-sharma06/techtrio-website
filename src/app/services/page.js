@@ -4,7 +4,7 @@ import React, { useEffect } from "react";
 import TestimonialSection from "./../../components/testimonial";
 import ContactForm from "./../../components/ContactForm";
 import AnimationList from "./../../components/AnimationList";
-
+import Products from "./../../components/Products"
 
 
 // Services List with Icons (Defined outside the component to avoid re-renders)
@@ -68,7 +68,9 @@ export default function Services() {
           </div>
         </div>
       </section>
-
+<section>
+  <Products/>
+</section>
       {/* Testimonial Section */}
       <TestimonialSection />
         
