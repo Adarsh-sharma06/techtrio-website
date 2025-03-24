@@ -294,10 +294,7 @@ export default function ContactForm() {
             {/* Hate contact forms option */}
             <p className={`${resolvedTheme === "dark" ? "text-gray-400" : "text-gray-600"} text-sm mt-4`}>
               Hate contact forms?{" "}
-              <a
-                href="mailto:info@techtrio.net"
-                className="text-yellow-400 hover:underline"
-              >
+              <a href="mailto:info@techtrio.net"className="text-yellow-400 hover:underline">
                 info@techtrio.net
               </a>
             </p>

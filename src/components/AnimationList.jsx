@@ -31,13 +31,13 @@ const getRandomColor = () => {
   return colors[Math.floor(Math.random() * colors.length)];
 };
 
+
 const getRandomTransform = () => {
   const animations = [
     "perspective(600px) rotateX(180deg)",
     "perspective(600px) rotateY(180deg)",
     "scale(1.1)",
-    "translateY(-10px)",
-    "rotate(-5deg)",
+
   ];
   return animations[Math.floor(Math.random() * animations.length)];
 };
@@ -173,8 +173,12 @@ const AnimatedList = () => {
   useEffect(() => setMounted(true), []);
 
   const transitions = useTransition(items, {
-    from: { opacity: 0, height: 0 },
-    enter: (item) => [{ opacity: 1, height: 40 }, { transform: getRandomTransform(), color: item.color }, { transform: "perspective(600px) rotateX(0deg)" }],
+    from: { opacity: 0, height: 50 },
+    enter: (item) => [
+      { opacity: 1, height: 50 },
+      { transform: getRandomTransform(), color: item.color },
+      { transform: "perspective(600px) rotateX(0deg)" } 
+    ],
     leave: [{ opacity: 0, height: 0 }],
     config: { tension: 200, friction: 20 },
   });
@@ -193,7 +197,14 @@ const AnimatedList = () => {
   return (
     <div className="flex h-screen gap-8">
       <div className="w-1/2 flex mt-40 justify-center p-8">
-        <div className="w-full max-w-md">{transitions((style, item) => <animated.div style={{ ...style, color: item.color }}>{item.text}</animated.div>)}</div>
+      <div className="w-full text-[38px] text-center font-bold max-w-md">
+  {transitions((style, item) => (
+    <animated.div style={{ ...style, color: item.color}}>
+      {item.text}
+    </animated.div>
+  ))}
+</div>
+
       </div>
       <div className="w-1/2 flex items-center justify-center p-6">
         <Masonry />

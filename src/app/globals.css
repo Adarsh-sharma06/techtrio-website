@@ -2,21 +2,7 @@
 @tailwind components;
 @tailwind utilities;
 
-
-body {
-  font-family: Arial, Helvetica, sans-serif;
-}
-
-@keyframes marquee {
-  0% { transform: translateX(0); }
-  100% { transform: translateX(-100%); }
-}
-
-@keyframes marquee-reverse {
-  0% { transform: translateX(-100%); }
-  100% { transform: translateX(0); }
-}
-
+/* Base styles */
 @layer base {
   :root {
     --background: 0 0% 100%;
@@ -44,7 +30,9 @@ body {
     --chart-4: 43 74% 66%;
     --chart-5: 27 87% 67%;
     --radius: 0.5rem;
+    --max-width: 1600px; /* Custom max width */
   }
+
   .dark {
     --background: 0 0% 3.9%;
     --foreground: 0 0% 98%;
@@ -71,39 +59,37 @@ body {
     --chart-4: 280 65% 60%;
     --chart-5: 340 75% 55%;
   }
-}
 
-@layer base {
   * {
     @apply border-border;
   }
+  
   body {
     @apply bg-background text-foreground;
+    font-family: Arial, Helvetica, sans-serif;
   }
 }
 
-
-@layer base {
-  :root {
-    --max-width: 1600px; /* Set to desired width */
-  }
-}
-
+/* Utility classes */
 @layer utilities {
   .max-w-custom {
     max-width: var(--max-width);
   }
 }
 
+/* Animations */
+@keyframes marquee {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-100%); }
+}
 
-
+@keyframes marquee-reverse {
+  0% { transform: translateX(-100%); }
+  100% { transform: translateX(0); }
+}
 
 /* Dark mode styles */
 .dark {
-
-  background-color: #171717; /* bg-gray-900 */
-
-  background-color: #1a202c; /* bg-gray-900 */
-
-  color: #ffffff; /* text-white */
+  background-color: #1a202c; /* Tailwind bg-gray-900 */
+  color: #ffffff; /* Tailwind text-white */
 }
