@@ -8,11 +8,8 @@ import ContactForm from "./../../components/ContactForm";
 import AnimationList from "./../../components/AnimationList";
 import Products from "./../../components/Products";
 
-<<<<<<< HEAD
-// Services List with Icons (Defined outside the component to avoid re-renders)
-=======
 // ✅ Updated Services List with Animations
->>>>>>> dheeraj
+
 const services = [
   { icon: "🛒", title: "E-commerce", description: "The online shop where you can sell your products." },
   { icon: "🖥️", title: "Website", description: "Things like your corporate or marketing website." },
