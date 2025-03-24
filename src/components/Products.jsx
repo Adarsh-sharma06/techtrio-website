@@ -1,3 +1,5 @@
+"use client"; // Ensures this is a client component
+
 import { useState } from "react";
 import Image from "next/image";
 
@@ -9,26 +11,34 @@ const Products = () => {
       id: "DataAnalytics",
       label: "Data Analytics and Automation",
       img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/data-analytics-automation.png",
+      description:
+        "We provide cutting-edge data solutions, helping financial institutions optimize processes through advanced analytics, AI, and automation.",
     },
     {
       id: "CloudServices",
       label: "Cloud Services",
       img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/cloud-services-tab.png",
+      description:
+        "Secure and scalable cloud solutions tailored to your needs, ensuring seamless data integration and business agility.",
     },
     {
       id: "AppModernization",
       label: "Application Modernization",
       img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/data-analytics-automation.png",
+      description:
+        "Transform legacy systems into modern, efficient applications that enhance operational efficiency and user experience.",
     },
     {
       id: "InfraServices",
       label: "Infra Services",
       img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/cloud-services-tab.png",
+      description:
+        "Robust IT infrastructure solutions ensuring security, performance, and scalability for financial institutions.",
     },
   ];
 
   return (
-    <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white flex flex-col items-center py-10 px-4">
+    <div className="min-h-screen bg-white dark:bg-gray-900 text-black dark:text-white flex flex-col items-center py-16 px-6">
       <h1 className="text-2xl md:text-3xl font-semibold mb-6 text-center">
         Services Portfolio for Financial Institutions
       </h1>
@@ -54,43 +64,35 @@ const Products = () => {
 
       {/* Content Section */}
       <div className="mt-6 max-w-5xl w-full flex flex-col items-center">
-        {tabs.map(
-          (tab, index) =>
-            activeTab === tab.id && (
-              <div
-                key={tab.id}
-                className={`flex flex-col md:flex-row items-center ${
-                  index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-                } justify-between gap-6 w-full`}
-              >
-                {/* Image Section */}
-                <div className="w-full md:w-1/2 flex justify-center">
-                  <Image
-                    src={tab.img}
-                    alt={tab.label}
-                    width={400}
-                    height={250}
-                    className="rounded-lg w-full max-w-sm md:max-w-md"
-                  />
-                </div>
-
-                {/* Text Content */}
-                <div className="w-full md:w-1/2 text-center md:text-left px-4">
-                  <h2 className="text-xl md:text-2xl font-bold mb-3">{tab.label}</h2>
-                  <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base">
-                    {tab.id === "DataAnalytics" &&
-                      "We provide cutting-edge data solutions, helping financial institutions optimize processes through advanced analytics, AI, and automation."}
-                    {tab.id === "CloudServices" &&
-                      "Secure and scalable cloud solutions tailored to your needs, ensuring seamless data integration and business agility."}
-                    {tab.id === "AppModernization" &&
-                      "Transform legacy systems into modern, efficient applications that enhance operational efficiency and user experience."}
-                    {tab.id === "InfraServices" &&
-                      "Robust IT infrastructure solutions ensuring security, performance, and scalability for financial institutions."}
-                  </p>
-                </div>
+        {tabs
+          .filter((tab) => tab.id === activeTab)
+          .map((tab, index) => (
+            <div
+              key={tab.id}
+              className={`flex flex-col md:flex-row items-center ${
+                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
+              } justify-between gap-6 w-full`}
+            >
+              {/* Image Section */}
+              <div className="w-full md:w-1/2 flex justify-center">
+                <Image
+                  src={tab.img}
+                  alt={tab.label}
+                  width={400}
+                  height={250}
+                  className="rounded-lg w-full max-w-sm md:max-w-md"
+                />
               </div>
-            )
-        )}
+
+              {/* Text Content */}
+              <div className="w-full md:w-1/2 text-center md:text-left px-4">
+                <h2 className="text-xl md:text-2xl font-bold mb-3">{tab.label}</h2>
+                <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base">
+                  {tab.description}
+                </p>
+              </div>
+            </div>
+          ))}
       </div>
     </div>
   );

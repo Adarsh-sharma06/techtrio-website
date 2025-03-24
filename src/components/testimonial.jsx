@@ -2,20 +2,19 @@
 
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
+import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
 import { db } from "./../../db/firebase"; // Adjust the import path as needed
 
 export default function TestimonialSection() {
-  const { resolvedTheme } = useTheme(); // Get the current theme
-  const [testimonials, setTestimonials] = useState([]); // State to store testimonials
-  const testimonialRefs = useRef([]); // Refs for testimonial elements
+  const { resolvedTheme } = useTheme();
+  const [testimonials, setTestimonials] = useState([]);
+  const testimonialRefs = useRef([]);
 
   // Dynamic styles based on theme
   const themeView = resolvedTheme === "dark" ? "bg-black text-white" : "bg-white text-black";
   const themeText = resolvedTheme === "dark" ? "text-white" : "text-black";
   const themeCardBg = resolvedTheme === "dark" ? "bg-gray-900" : "bg-gray-100";
-  const themeBorder = resolvedTheme === "dark" ? "border-gray-600" : "border-gray-300";
-  const themeButtonText = resolvedTheme === "dark" ? "text-gray-400" : "text-gray-600";
   const themeRoleText = resolvedTheme === "dark" ? "text-gray-400" : "text-gray-600";
 
   // Fetch testimonials from Firestore
@@ -36,7 +35,7 @@ export default function TestimonialSection() {
     fetchTestimonials();
   }, []);
 
-  // Scroll animation for testimonials
+  // Scroll animation for testimonials (continuous effect)
   useEffect(() => {
     const observer = new IntersectionObserver(
       (entries) => {
@@ -44,10 +43,18 @@ export default function TestimonialSection() {
           if (entry.isIntersecting) {
             entry.target.classList.add("opacity-100", "translate-x-0");
             entry.target.classList.remove("opacity-0", "translate-x-full", "-translate-x-full");
+          } else {
+            entry.target.classList.add("opacity-0");
+            entry.target.classList.remove("opacity-100", "translate-x-0");
+            if (entry.target.dataset.index % 2 === 0) {
+              entry.target.classList.add("-translate-x-full");
+            } else {
+              entry.target.classList.add("translate-x-full");
+            }
           }
         });
       },
-      { threshold: 0.1 } // Trigger when 10% of the element is visible
+      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
     );
 
     testimonialRefs.current.forEach((ref) => {
@@ -59,7 +66,7 @@ export default function TestimonialSection() {
         if (ref) observer.unobserve(ref);
       });
     };
-  }, [testimonials]); // Re-run effect when testimonials change
+  }, [testimonials]);
 
   return (
     <div className={`min-h-screen ${themeView} flex flex-col justify-center items-center px-6 py-12`}>
@@ -67,11 +74,6 @@ export default function TestimonialSection() {
       <div className="text-center mb-10">
         <h2 className={`text-4xl font-semibold ${themeText}`}>Testimonials.</h2>
         <h3 className={`text-3xl font-bold ${themeText}`}>Rumour has it.</h3>
-        <button
-          className={`mt-4 px-6 py-2 border ${themeBorder} rounded-full ${themeButtonText} hover:bg-gray-800 transition`}
-        >
-          See projects →
-        </button>
       </div>
 
       {/* Testimonials Container */}
@@ -80,9 +82,10 @@ export default function TestimonialSection() {
           <div
             key={testimonial.id}
             ref={(el) => (testimonialRefs.current[index] = el)}
-            className={`max-w-md bg-transparent opacity-0 ${
+            data-index={index}
+            className={`max-w-md bg-transparent opacity-0 transition-all duration-1000 ease-in-out ${
               index % 2 === 0 ? "-translate-x-full" : "translate-x-full"
-            } transition-all duration-1000 ease-in-out`}
+            }`}
           >
             <p className={`text-lg font-semibold ${themeCardBg} px-6 py-4 rounded-lg shadow-lg`}>
               “{testimonial.quote}”
@@ -100,6 +103,30 @@ export default function TestimonialSection() {
             </div>
           </div>
         ))}
+      </div>
+
+      {/* LET'S GO Button - Now at the Bottom and Centered */}
+      <div className="mt-12 flex justify-center">
+        <Link
+          href="/contact"
+          className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
+        >
+         See Projects
+          <svg
+            className="ml-2 w-4 h-4 md:w-5 md:h-5"
+            viewBox="0 0 19 20"
+            fill="none"
+            xmlns="http://www.w3.org/2000/svg"
+          >
+            <path
+              d="M5.53848 13.7123L12.9631 6.28769M12.9631 6.28769V13.7123M12.9631 6.28769H5.53848"
+              stroke="currentColor"
+              strokeWidth="1.5"
+              strokeLinecap="round"
+              strokeLinejoin="round"
+            />
+          </svg>
+        </Link>
       </div>
     </div>
   );

@@ -4,79 +4,12 @@
 
 import ContactForm from "./../../components/ContactForm";
 import TestimonialSection from "./../../components/testimonial";
+import AboutDeck from "./../../components/AboutDeck"
 import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 
-const timelineItems = [
-
-    {
-      text: "Significa was founded by Pedro 'El Patrón' Brandão.",
-      images: ["https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg", "https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg"],
-      stickers: ["/stickers/arrow.svg"],
-    },
-    {
-      text: "Mariana was our first hire in 2016, and has been with us ever since.",
-      images: [
-        "https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg",
-      ],
-      stickers: ["/stickers/egg.svg"],
-      button: "Join us",
-    },
-    {
-      text: "In that year we moved to a bigger office.",
-      images: ["https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg", "https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg"],
-      stickers: ["/stickers/diamond.svg"],
-    },
-    {
-      text: "We met Coletiv and collaborated on many projects together.",
-      images: ["https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg"],
-      stickers: ["/stickers/glasses.svg"],
-    },
-
-   {
-    text: "Significa was founded by Pedro 'El Patrón' Brandão.",
-    images: ["/images/timeline1.jpg", "/images/timeline2.jpg"],
-    stickers: ["/stickers/arrow.svg"],
-  },
-  {
-    text: "Mariana was our first hire in 2016, and has been with us ever since.",
-    images: ["/images/timeline3.jpg"],
-    stickers: ["/stickers/egg.svg"],
-    button: "Join us",
-  },
-  {
-    text: "In that year we moved to a bigger office.",
-    images: ["/images/timeline4.jpg", "/images/timeline5.jpg"],
-    stickers: ["/stickers/diamond.svg"],
-  },
-  {
-    text: "We met Coletiv and collaborated on many projects together.",
-    images: ["/images/timeline6.jpg"],
-    stickers: ["/stickers/glasses.svg"],
-  }, {
-    text: "Significa was founded by Pedro 'El Patrón' Brandão.",
-    images: ["/images/timeline1.jpg", "/images/timeline2.jpg"],
-    stickers: ["/stickers/arrow.svg"],
-  },
-  {
-    text: "Mariana was our first hire in 2016, and has been with us ever since.",
-    images: ["/images/timeline3.jpg"],
-    stickers: ["/stickers/egg.svg"],
-    button: "Join us",
-  },
-  {
-    text: "In that year we moved to a bigger office.",
-    images: ["/images/timeline4.jpg", "/images/timeline5.jpg"],
-    stickers: ["/stickers/diamond.svg"],
-  },
-  {
-    text: "We met Coletiv and collaborated on many projects together.",
-    images: ["/images/timeline6.jpg"],
-    stickers: ["/stickers/glasses.svg"],
-  },
-];
 
 
 const values = [
@@ -178,73 +111,8 @@ export default function About() {
       }`}
     >
       <main className="flex-1">
-      <TestimonialSection />
-      <ContactForm />
-        <section
-          className={`relative w-full h-[80vh] mt-20 pt-10 ${
-            isAtEnd ? "overflow-y-auto" : "overflow-hidden"
-          }`}
-        >
-          <div
-            ref={scrollContainer}
-            className="relative flex space-x-20 overflow-x-auto overflow-y-hidden px-20 py-10 snap-x snap-mandatory no-scrollbar"
-            style={{
-              scrollbarWidth: "none",
-              msOverflowStyle: "none",
-            }}
-          >
-            {timelineItems.map((item, index) => (
-              <motion.div
-                key={index}
-                className="shrink-0 w-[450px] h-[500px] flex flex-col items-center space-y-4 snap-center"
-                initial={{ opacity: 0, x: 50 }}
-                animate={{ opacity: 1, x: 0 }}
-                transition={{ duration: 0.6, delay: index * 0.2 }}
-              >
-                <p className="text-lg text-center font-light">{item.text}</p>
-                <div className="relative flex flex-wrap justify-center space-x-4">
-                  {item.images.map((img, imgIndex) => (
-                    <motion.div key={imgIndex} className="relative">
-                      <Image
-                        src={img}
-                        alt="timeline image"
-                        width={150}
-                        height={150}
-                        className="rounded-lg shadow-md border-2 border-white"
-                      />
-                    </motion.div>
-                  ))}
-                </div>
-                {item.stickers?.map((sticker, sIndex) => (
-                  <Image
-                    key={sIndex}
-                    src={sticker}
-                    alt="sticker"
-                    width={50}
-                    height={50}
-                    className="absolute -bottom-4 -right-4"
-                  />
-                ))}
-                {item.button && (
-                  <button className="bg-white text-black px-4 py-2 rounded-md shadow-md">
-                    {item.button}
-                  </button>
-                )}
-              </motion.div>
-            ))}
-          </div>
-        </section>
-
- {isAtEnd && (
-          <section
-            className={`p-20 text-center transition-colors duration-300 ${
-              theme === "dark" ? "bg-gray-900 text-white" : "bg-gray-100 text-black"  
-            }`}
-          >
-            <h2 className="text-4xl font-bold">Welcome to the next section!</h2>
-            <p className="text-lg mt-4">Now you can scroll down normally.</p>
-          </section>
-        )} 
+   
+      <AboutDeck/>
 
         <div className={`${theme === "dark" ? "bg-black" : "bg-white"}`}>
         {/* Our Values Section */}
@@ -272,7 +140,7 @@ export default function About() {
                 initial={{ opacity: 0, x: 30 }}
                 whileInView={{ opacity: 1, x: 0 }}
                 transition={{ duration: 0.6, delay: index * 0.2 }}
-                viewport={{ once: true }}
+                viewport={{ once: false }}
               >
                 <Image
                   src={value.image}

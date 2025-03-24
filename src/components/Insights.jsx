@@ -42,7 +42,7 @@ const insights = [
 
 const Insights = () => {
   return (
-    <section className="py-16 px-6 bg-gray-50 dark:bg-gray-900">
+    <section className="py-16 h-screen px-6 bg-gray-50 dark:bg-gray-900">
       {/* Section Heading */}
       <motion.div
         className="max-w-5xl mx-auto text-center"
@@ -50,7 +50,7 @@ const Insights = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
+        <h2 className="text-4xl pt-10 font-extrabold text-gray-900 dark:text-white tracking-tight">
           Explore Our Insights
         </h2>
         <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
@@ -59,7 +59,7 @@ const Insights = () => {
       </motion.div>
 
       {/* Cards Grid */}
-      <div className="mt-12 grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+      <div className="mt-12  grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
         {insights.map((post, index) => (
           <motion.div
             key={index}
@@ -67,7 +67,7 @@ const Insights = () => {
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2, duration: 0.5 }}
-            viewport={{ once: true }}
+            viewport={{ once: false }}
           >
             <Link href={post.link}>
               <div className="relative w-full h-60 overflow-hidden">
