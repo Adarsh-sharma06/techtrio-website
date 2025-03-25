@@ -1,144 +1,174 @@
 "use client";
 
-import { motion } from "framer-motion";
+import { useEffect, useState, useRef } from "react";
+import { motion, AnimatePresence } from "framer-motion";
+import { db } from "../../db/firebase";
+import { collection, getDocs } from "firebase/firestore";
 import Image from "next/image";
 import Link from "next/link";
-
-const insights = [
-  {
-    title: "Innovation is a Mindset, Not a Department",
-    description:
-      "Innovation shouldn't be limited to a specific team or project. Encourage every employee to contribute ideas...",
-    category: "Thought Leadership",
-    date: "December 5, 2024",
-    readTime: "7 min read",
-    author: "TechTrio",
-    image: "https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg",
-    link: "/blog/personalizing-healthcare-technology-with-gamification",
-  },
-  {
-    title: "User-Centered Design Drives Success",
-    description:
-      "The best software isn't just functional – it's intuitive and delightful. Involve users early and often...",
-    category: "Thought Leadership",
-    date: "November 19, 2024",
-    readTime: "8 min read",
-    author: "TechTrio",
-    image: "https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg",
-    link: "/blog/crafting-health-experiences-the-role-of-personalized-educational-content-in-digital-health-products",
-  },
-  {
-    title: "Automation is Your Best Friend",
-    description:
-      "Repetitive tasks slow down progress. Automate wherever possible – from testing to deployment pipelines...",
-    category: "Thought Leadership",
-    date: "October 1, 2024",
-    readTime: "12 min read",
-    author: "TechTrio",
-    image: "https://res.cloudinary.com/ddztecdya/image/upload/v1734269530/ndmqsnjupikvjgwbndoh.jpg",
-    link: "/blog/personalization-in-the-digital-health-industry",
-  },
-];
+import { useSwipeable } from "react-swipeable";
 
 const Insights = () => {
+  const [blogs, setBlogs] = useState([]);
+  const [currentIndex, setCurrentIndex] = useState(0);
+  const containerRef = useRef(null);
+  const isDragging = useRef(false); // To track user dragging
+
+  // ✅ Fetch blogs from Firestore
+  useEffect(() => {
+    const fetchBlogs = async () => {
+      try {
+        const categoriesRef = collection(db, "categories");
+        const categoriesSnapshot = await getDocs(categoriesRef);
+        let allBlogs = [];
+
+        for (const categoryDoc of categoriesSnapshot.docs) {
+          const categoryName = categoryDoc.id;
+          const blogsRef = collection(db, "categories", categoryName, "blogs");
+          const blogsSnapshot = await getDocs(blogsRef);
+
+          blogsSnapshot.forEach((blogDoc) => {
+            allBlogs.push({
+              id: blogDoc.id,
+              ...blogDoc.data(),
+              category: categoryName,
+            });
+          });
+        }
+
+        setBlogs([...allBlogs]); // No need to duplicate here, handled in UI
+      } catch (error) {
+        console.error("Error fetching blogs:", error);
+      }
+    };
+
+    fetchBlogs();
+  }, []);
+
+  // ✅ Auto-scroll every 3s (if not manually dragged)
+  useEffect(() => {
+    if (blogs.length === 0) return;
+
+    const interval = setInterval(() => {
+      if (!isDragging.current) {
+        setCurrentIndex((prev) => (prev + 1) % blogs.length);
+      }
+    }, 3000);
+
+    return () => clearInterval(interval);
+  }, [blogs]);
+
+  // ✅ Swipe gesture support
+  const handlers = useSwipeable({
+    onSwipedLeft: () => setCurrentIndex((prev) => (prev + 1) % blogs.length),
+    onSwipedRight: () => setCurrentIndex((prev) => (prev - 1 + blogs.length) % blogs.length),
+    preventScrollOnSwipe: true,
+  });
+
   return (
-    <section className="py-16 h-screen px-6 bg-gray-50 dark:bg-gray-900">
+    <section
+      className="py-16 px-4 sm:px-6 bg-gray-50 dark:bg-gray-900 relative overflow-hidden"
+      {...handlers}
+    >
       {/* Section Heading */}
       <motion.div
-        className="max-w-5xl mx-auto text-center"
+        className="max-w-4xl mx-auto text-center"
         initial={{ opacity: 0, y: -20 }}
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-4xl pt-10 font-extrabold text-gray-900 dark:text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white">
           Explore Our Insights
         </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mt-2">
           Stay informed about the latest innovations and industry insights.
         </p>
       </motion.div>
 
-      {/* Cards Grid */}
-      <div className="mt-12  grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
-        {insights.map((post, index) => (
-          <motion.div
-            key={index}
-            className="relative bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 max-w-[400px] mx-auto"
-            initial={{ opacity: 0, y: 30 }}
-            whileInView={{ opacity: 1, y: 0 }}
-            transition={{ delay: index * 0.2, duration: 0.5 }}
-            viewport={{ once: false }}
-          >
-            <Link href={post.link}>
-              <div className="relative w-full h-60 overflow-hidden">
-                <Image
-                  src={post.image}
-                  alt={post.title}
-                  layout="fill"
-                  objectFit="cover"
-                  className="hover:opacity-85 transition-all duration-300"
-                />
-                {/* Gradient Overlay */}
-                <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-70"></div>
-              </div>
-              <div className="p-6">
-                <span className="text-sm font-semibold uppercase text-purple-600 dark:text-purple-400 tracking-wide">
-                  {post.category}
-                </span>
-                <h3 className="text-xl font-semibold mt-3 text-gray-900 dark:text-white transition-colors duration-300">
-                  {post.title}
-                </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 line-clamp-2">
-                  {post.description}
-                </p>
-                <div className="flex items-center mt-4 text-gray-400 text-sm">
-                  <span>{post.author}</span>
-                  <span className="mx-2">•</span>
-                  <span>{post.date}</span>
-                  <span className="mx-2">•</span>
-                  <span>{post.readTime}</span>
-                </div>
-              </div>
-            </Link>
-          </motion.div>
-        ))}
+      {/* ✅ Smooth Scrolling Insights Container */}
+      <div className="relative mt-10 w-full max-w-5xl mx-auto overflow-hidden">
+        <motion.div
+          ref={containerRef}
+          className="flex gap-6 cursor-grab active:cursor-grabbing"
+          drag="x"
+          dragConstraints={{ left: -3000, right: 0 }} // Keeps it scrollable
+          dragTransition={{ bounceStiffness: 200, bounceDamping: 20 }} // Smooth scrolling
+          onDragStart={() => (isDragging.current = true)}
+          onDragEnd={() => (isDragging.current = false)}
+          animate={{ x: -currentIndex * 280 }} // Smooth movement per index
+          transition={{ type: "tween", duration: 0.8, ease: "easeInOut" }}
+        >
+          {blogs.length > 0 ? (
+            [...blogs, ...blogs].map((post, i) => (
+              <motion.div
+                key={`${post.id}-${i}`}
+                className="relative bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden hover:scale-[1.03] transition-transform duration-300 w-72 flex-shrink-0"
+                style={{ scrollSnapAlign: "center" }}
+              >
+                <Link href={`/blogs/${post.id}`}>
+                  {/* Blog Image */}
+                  <div className="relative w-full h-48 overflow-hidden">
+                    <Image
+                      src={post.images?.[0] || "https://via.placeholder.com/400"}
+                      alt={post.title}
+                      layout="fill"
+                      objectFit="cover"
+                      className="hover:opacity-85 transition-all duration-300"
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-70"></div>
+                  </div>
+
+                  <div className="p-5">
+                    <span className="text-xs font-semibold uppercase text-blue-600 dark:text-blue-400">
+                      {post.category}
+                    </span>
+                    <h3 className="text-lg font-semibold mt-1 text-gray-900 dark:text-white">
+                      {post.title}
+                    </h3>
+                    <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 line-clamp-2">
+                      {post.subtitle || "No description available"}
+                    </p>
+                    <div className="flex items-center mt-3 text-gray-400 text-xs">
+                      <span>{post.author || "TechTrio"}</span>
+                      <span className="mx-2">•</span>
+                      <span>{post.date || "Unknown Date"}</span>
+                    </div>
+                  </div>
+                </Link>
+              </motion.div>
+            ))
+          ) : (
+            <p className="text-gray-500 dark:text-gray-400">No blogs available.</p>
+          )}
+        </motion.div>
       </div>
 
       {/* View All Articles Button */}
       <motion.div
-        className="mt-16 flex justify-center"
+        className="mt-10 flex justify-center"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
         viewport={{ once: true }}
       >
-        <Link href="/category/thought-leadership">
-       
-
-         
-                      <div className="mt-6 md:mt-8 flex justify-center md:justify-start">
-              <Link
-                href="/contact"
-                className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
-              >
-              VIEW ALL ARTICLE
-                <svg
-                  className="ml-2 w-4 h-4 md:w-5 md:h-5"
-                  viewBox="0 0 19 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.53848 13.7123L12.9631 6.28769M12.9631 6.28769V13.7123M12.9631 6.28769H5.53848"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-            </div>
-
+        <Link href="/blogs">
+          <button className="flex items-center justify-center bg-yellow-400 text-black font-semibold px-5 py-3 rounded-md transition text-base">
+            View All Articles
+            <svg
+              className="ml-2 w-5 h-5"
+              viewBox="0 0 19 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.53848 13.7123L12.9631 6.28769M12.9631 6.28769V13.7123M12.9631 6.28769H5.53848"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </Link>
       </motion.div>
     </section>

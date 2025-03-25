@@ -7,7 +7,7 @@ import ContactForm from "./../../components/ContactForm";
 
 import AnimationList from "./../../components/AnimationList";
 import Products from "./../../components/Products";
-
+import ClientCarousel from "./../../components/ClientCarousel"
 // ✅ Updated Services List with Animations
 
 const services = [
@@ -60,7 +60,7 @@ export default function Services() {
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.8, ease: "easeOut" }}
           >
-            <h2 className="text-3xl md:text-4xl font-bold">Deliverables.</h2>
+            <h2 className="text-3xl md:text-4xl text-yellow-400 ont-bold">Deliverables.</h2>
             <p className="text-lg md:text-xl mt-2 text-gray-600 dark:text-gray-400">
               Including but not limited to.
             </p>
@@ -88,7 +88,7 @@ export default function Services() {
 
       {/* ✅ Testimonial Section */}
       <TestimonialSection />
-
+            <ClientCarousel/>
       {/* ✅ Contact Form */}
       <ContactForm />
 

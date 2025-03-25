@@ -10,7 +10,7 @@ const Products = () => {
     {
       id: "DataAnalytics",
       label: "Data Analytics and Automation",
-      img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/data-analytics-automation.png",
+      img: "https://elementor.com/cdn-cgi/image/f=auto,w=604/https://elementor.com/wp-content/uploads/2021/05/developer-1.png",
       description:
         "We provide cutting-edge data solutions, helping financial institutions optimize processes through advanced analytics, AI, and automation.",
     },
@@ -44,16 +44,16 @@ const Products = () => {
       </h1>
 
       {/* Tabs - Scrollable on small screens */}
-      <div className="w-full overflow-x-auto">
-        <div className="flex space-x-2 md:space-x-4 bg-gray-200 dark:bg-gray-800 p-2 rounded-full w-max mx-auto">
+      <div className="w-full m-4 overflow-x-auto">
+        <div className="flex space-x-2 md:space-x-8 bg-black dark:bg-gray-800 p-4 rounded-full w-max mx-auto">
           {tabs.map((tab) => (
             <button
               key={tab.id}
               onClick={() => setActiveTab(tab.id)}
               className={`px-4 py-2 whitespace-nowrap rounded-full transition-all text-xs md:text-sm font-medium ${
                 activeTab === tab.id
-                  ? "bg-gray-900 text-white"
-                  : "text-gray-600 dark:text-gray-400 hover:bg-gray-300 dark:hover:bg-gray-700"
+                  ? "bg-yellow-400 text-black"
+                  : "text-white dark:text-white hover:bg-white hover:text-black dark:hover:bg-black"
               }`}
             >
               {tab.label}
@@ -63,7 +63,7 @@ const Products = () => {
       </div>
 
       {/* Content Section */}
-      <div className="mt-6 max-w-5xl w-full flex flex-col items-center">
+      <div className="mt-10 p-10 max-w-5xl w-full flex flex-col items-center">
         {tabs
           .filter((tab) => tab.id === activeTab)
           .map((tab, index) => (
