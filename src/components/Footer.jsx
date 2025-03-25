@@ -58,28 +58,25 @@ const AnimatedWords = () => {
 
 
   return (
-<motion.div
-  id="animated-text"
-  className="flex justify-center items-end gap-6 md:gap-10 w-full text-7xl md:text-[8rem] font-bold uppercase tracking-wider leading-none"
-  initial="hidden"
-  animate={open ? "visible" : "hidden"}
->
-  {letters.map((letter, index) => (
-    <motion.span
-      key={index}
-      variants={letterAnimations[index]}
-      className={`inline-block transition-transform duration-300 ${
-        [0,  5, ].includes(index) ? "text-8xl md:text-[10rem]" : "text-7xl md:text-[8rem]"
-      } ${
-        index === 0 ? "text-orange-500" // First "T" in Orange
-        : index === 5 ? "text-orange-500" 
-        : "text-gray-900 dark:text-gray-100"
-      }`}
+ <motion.div
+      id="animated-text"
+      className="flex justify-center items-end gap-2 sm:gap-4 md:gap-6 lg:gap-10 w-full text-4xl sm:text-5xl md:text-7xl lg:text-[8rem] font-bold uppercase tracking-wider leading-none"
+      initial="hidden"
+      animate={open ? "visible" : "hidden"}
     >
-      {letter}
-    </motion.span>
-  ))}
-</motion.div>
+      {letters.map((letter, index) => (
+        <motion.span
+          key={index}
+          variants={letterAnimations[index]}
+          className={`inline-block transition-transform duration-300 
+            ${[0, 5].includes(index) ? "text-5xl sm:text-6xl md:text-8xl lg:text-[10rem]" : "text-4xl sm:text-5xl md:text-7xl lg:text-[8rem]"}
+            ${index === 0 || index === 5 ? "text-orange-500" : "text-gray-900 dark:text-gray-100"}
+          `}
+        >
+          {letter}
+        </motion.span>
+      ))}
+    </motion.div>
 
   );
 };
@@ -154,58 +151,66 @@ const Footer = () => {
 
       {/* Footer Bottom */}
       <div className="max-w-custom mx-auto px-6">
-        <div className="grid grid-cols-1 md:grid-cols-4 gap-8 py-8">
-          {/* Services */}
-          <div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-6">Services</h3>
-            <ul className="space-y-3 text-lg">
-              <li><Link href="/solutions/provider-solutions">Automation</Link></li>
-              <li><Link href="/solutions/healthtech-solutions">Payment Gateway</Link></li>
-              <li><Link href="/solutions/payor-solutions">App Development</Link></li>
-              <li><Link href="/solutions/pharma-solutions">Web Development</Link></li>
-            </ul>
-          </div>
+  <div
+    className="grid grid-cols-1 md:grid-cols-4 gap-8 py-8 
+      sm:grid-cols-2 sm:gap-y-12" // Adjusted for mobile view
+  >
+    {/* Services */}
+    <div>
+      <h3 className="text-xl md:text-2xl font-semibold mb-6">Services</h3>
+      <ul className="space-y-3 text-lg">
+        <li><Link href="/solutions/provider-solutions">Automation</Link></li>
+        <li><Link href="/solutions/healthtech-solutions">Payment Gateway</Link></li>
+        <li><Link href="/solutions/payor-solutions">App Development</Link></li>
+        <li><Link href="/solutions/pharma-solutions">Web Development</Link></li>
+      </ul>
+    </div>
 
-          {/* About */}
-          <div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-6">About</h3>
-            <ul className="space-y-3 text-lg">
-              <li><Link href="/casestudies">About</Link></li>
-              <li><Link href="/category/thought-leadership">Careers</Link></li>
-              <li><Link href="/category/newsroom">Blogs</Link></li>
-              <li><Link href="/category/resources">Our Team</Link></li>
-            </ul>
-          </div>
+    {/* About */}
+    <div>
+      <h3 className="text-xl md:text-2xl font-semibold mb-6">About</h3>
+      <ul className="space-y-3 text-lg">
+        <li><Link href="/casestudies">About</Link></li>
+        <li><Link href="/category/thought-leadership">Careers</Link></li>
+        <li><Link href="/category/newsroom">Blogs</Link></li>
+        <li><Link href="/category/resources">Our Team</Link></li>
+      </ul>
+    </div>
 
-          {/* Support & Legal */}
-          <div>
-            <h3 className="text-xl md:text-2xl font-semibold mb-6">Support and Legal</h3>
-            <ul className="space-y-3 text-lg">
-              <li><Link href="/team">FAQs & Privacy Policy</Link></li>
-              <li><Link href="/careers">Live Chat</Link></li>
-            </ul>
-          </div>
+    {/* Support & Legal */}
+    <div>
+      <h3 className="text-xl md:text-2xl font-semibold mb-6">Support and Legal</h3>
+      <ul className="space-y-3 text-lg">
+        <li><Link href="/team">FAQs & Privacy Policy</Link></li>
+        <li><Link href="/careers">Live Chat</Link></li>
+      </ul>
+    </div>
 
-          {/* Contact */}
-          <div>
-            <div className="mb-6">
-              <Link href="/team">Vijapur, Gujarat</Link>
-            </div>
-            <Link href="/contact" className="inline-flex items-center bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md transition text-lg">
-              CONTACT US
-            </Link>
-          </div>
-        </div>
- {/* Animated TECHTRIO Words Above Divider */}
- <AnimatedWords />
-
-{/* Divider */}
-<div className="relative border-t border-gray-700 mb-6"></div>
-        {/* Copyright */}
-        <div className="flex justify-between items-center text-sm mt-10">
-          <div>© {new Date().getFullYear()} TechTrio. All rights reserved.</div>
-        </div>
+    {/* Contact */}
+    <div>
+      <div className="mb-6">
+        <Link href="/team">Vijapur, Gujarat</Link>
       </div>
+      <Link
+        href="/contact"
+        className="inline-flex items-center bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md transition text-lg"
+      >
+        CONTACT US
+      </Link>
+    </div>
+  </div>
+
+  {/* Animated TECHTRIO Words Above Divider */}
+  <AnimatedWords />
+
+  {/* Divider */}
+  <div className="relative border-t border-gray-700 mb-6"></div>
+
+  {/* Copyright */}
+  <div className="flex justify-between items-center text-sm mt-10">
+    <div>© {new Date().getFullYear()} TechTrio. All rights reserved.</div>
+  </div>
+</div>
     </footer>
   );
 };

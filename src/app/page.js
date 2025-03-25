@@ -1,10 +1,12 @@
 
-import ContactForm from "./../components/ContactForm";
+
 import Hero from "../components/Hero";
 import TestimonialSection from "./../components/testimonial";
 import Insights from "./../components/Insights";
 import Products from "../components/Products";
 import  Trail  from "../components/Trail";
+import ClientLogosCarousel from "../components/ClientCarousel";
+import ContactForm from "../components/ContactForm";
 
 export default function Home() {
   return (
@@ -13,8 +15,9 @@ export default function Home() {
       <Hero />
       <Products/>
     <TestimonialSection/>
+    <ClientLogosCarousel/>
     <Insights/>
-
+<ContactForm/>
     </main>
   );
 }

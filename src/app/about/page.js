@@ -9,6 +9,7 @@ import { motion } from "framer-motion";
 import Image from "next/image";
 import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
+import ClientLogosCarousel from "../../components/ClientCarousel";
 
 
 
@@ -165,6 +166,7 @@ export default function About() {
       </section>
 
           <TestimonialSection />
+          <ClientLogosCarousel/>
           <ContactForm />
         </div>
      

@@ -6,7 +6,7 @@ import TestimonialSection from "./../../components/testimonial";
 import ContactForm from "./../../components/ContactForm";
 import AnimationList from "./../../components/AnimationList";
 import Products from "./../../components/Products";
-
+import ClientCarousel from "./../../components/ClientCarousel"
 // ✅ Updated Services List with Animations
 const services = [
   { icon: "🛒", title: "E-commerce", description: "The online shop where you can sell your products." },
@@ -68,7 +68,7 @@ export default function Services() {
 
       {/* ✅ Testimonial Section */}
       <TestimonialSection />
-
+            <ClientCarousel/>
       {/* ✅ Contact Form */}
       <ContactForm />
     </main>

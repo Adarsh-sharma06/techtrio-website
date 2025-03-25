@@ -189,21 +189,36 @@ const AnimatedList = () => {
   if (!mounted) return null;
 
   return (
-    <div className="flex h-screen gap-8">
-      <div className="w-1/2 flex mt-40 justify-center p-8">
-      <div className="w-full text-[38px] text-center font-bold max-w-md">
-  {transitions((style, item) => (
-    <animated.div style={{ ...style, color: item.color}}>
-      {item.text}
-    </animated.div>
-  ))}
+<div className="flex flex-col md:flex-row h-screen gap-8">
+  {/* Left Side: Heading (90% height on mobile) */}
+  <div className="w-full md:w-1/2 flex flex-col justify-start items-center p-6 flex-grow">
+    
+    {/* Static Heading at the Top */}
+    <h1 className="text-[28px] md:text-[38px] font-bold text-center md:text-center w-full max-w-xs md:max-w-md mt-10">
+      Our Services
+    </h1>
+
+    {/* Gap between Heading & List */}
+    <div className="mt-16"></div>
+
+    {/* Animated Text Below */}
+    <div className="w-full text-[24px] md:text-[32px] text-center font-bold max-w-xs md:max-w-md mt-20">
+      {transitions((style, item) => (
+        <animated.div style={{ ...style, color: item.color }}>
+          {item.text}
+        </animated.div>
+      ))}
+    </div>
+  </div>
+
+  {/* Right Side: Masonry (10% height on mobile, normal on desktop) */}
+  <div className="w-full md:w-1/2 h-0 md:h-auto hidden md:flex items-center justify-center p-6">
+    <Masonry />
+  </div>
 </div>
 
-      </div>
-      <div className="w-1/2 flex items-center justify-center p-6">
-        <Masonry />
-      </div>
-    </div>
+
+
   );
 };
 

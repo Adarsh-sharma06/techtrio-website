@@ -42,7 +42,7 @@ const insights = [
 
 const Insights = () => {
   return (
-    <section className="py-16 h-screen px-6 bg-gray-50 dark:bg-gray-900">
+    <section className="py-16 px-4 sm:px-6 bg-gray-50 dark:bg-gray-900">
       {/* Section Heading */}
       <motion.div
         className="max-w-5xl mx-auto text-center"
@@ -50,27 +50,27 @@ const Insights = () => {
         animate={{ opacity: 1, y: 0 }}
         transition={{ duration: 0.6 }}
       >
-        <h2 className="text-4xl pt-10 font-extrabold text-gray-900 dark:text-white tracking-tight">
+        <h2 className="text-3xl sm:text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
           Explore Our Insights
         </h2>
-        <p className="text-lg text-gray-600 dark:text-gray-400 mt-2">
+        <p className="text-base sm:text-lg text-gray-600 dark:text-gray-400 mt-2">
           Stay informed about the latest innovations and industry insights.
         </p>
       </motion.div>
 
       {/* Cards Grid */}
-      <div className="mt-12  grid gap-10 sm:grid-cols-1 md:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
+      <div className="mt-12 grid gap-6 sm:gap-10 sm:grid-cols-2 lg:grid-cols-3 max-w-7xl mx-auto">
         {insights.map((post, index) => (
           <motion.div
             key={index}
-            className="relative bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden hover:scale-105 transition-transform duration-300 max-w-[400px] mx-auto"
+            className="relative bg-white dark:bg-gray-800 shadow-lg rounded-xl overflow-hidden hover:scale-[1.03] transition-transform duration-300 w-full max-w-[350px] mx-auto"
             initial={{ opacity: 0, y: 30 }}
             whileInView={{ opacity: 1, y: 0 }}
             transition={{ delay: index * 0.2, duration: 0.5 }}
             viewport={{ once: false }}
           >
             <Link href={post.link}>
-              <div className="relative w-full h-60 overflow-hidden">
+              <div className="relative w-full h-56 sm:h-60 overflow-hidden">
                 <Image
                   src={post.image}
                   alt={post.title}
@@ -81,17 +81,17 @@ const Insights = () => {
                 {/* Gradient Overlay */}
                 <div className="absolute inset-0 bg-gradient-to-t from-gray-900 via-transparent to-transparent opacity-70"></div>
               </div>
-              <div className="p-6">
+              <div className="p-5 sm:p-6">
                 <span className="text-sm font-semibold uppercase text-purple-600 dark:text-purple-400 tracking-wide">
                   {post.category}
                 </span>
-                <h3 className="text-xl font-semibold mt-3 text-gray-900 dark:text-white transition-colors duration-300">
+                <h3 className="text-lg sm:text-xl font-semibold mt-2 sm:mt-3 text-gray-900 dark:text-white transition-colors duration-300">
                   {post.title}
                 </h3>
-                <p className="text-sm text-gray-500 dark:text-gray-400 mt-3 line-clamp-2">
+                <p className="text-sm text-gray-500 dark:text-gray-400 mt-2 sm:mt-3 line-clamp-2">
                   {post.description}
                 </p>
-                <div className="flex items-center mt-4 text-gray-400 text-sm">
+                <div className="flex flex-wrap items-center mt-3 sm:mt-4 text-gray-400 text-xs sm:text-sm">
                   <span>{post.author}</span>
                   <span className="mx-2">•</span>
                   <span>{post.date}</span>
@@ -106,39 +106,30 @@ const Insights = () => {
 
       {/* View All Articles Button */}
       <motion.div
-        className="mt-16 flex justify-center"
+        className="mt-12 sm:mt-16 flex justify-center"
         initial={{ opacity: 0, y: 20 }}
         whileInView={{ opacity: 1, y: 0 }}
         transition={{ delay: 0.5, duration: 0.6 }}
         viewport={{ once: true }}
       >
         <Link href="/category/thought-leadership">
-       
-
-         
-                      <div className="mt-6 md:mt-8 flex justify-center md:justify-start">
-              <Link
-                href="/contact"
-                className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
-              >
-              VIEW ALL ARTICLE
-                <svg
-                  className="ml-2 w-4 h-4 md:w-5 md:h-5"
-                  viewBox="0 0 19 20"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    d="M5.53848 13.7123L12.9631 6.28769M12.9631 6.28769V13.7123M12.9631 6.28769H5.53848"
-                    stroke="currentColor"
-                    strokeWidth="1.5"
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                  />
-                </svg>
-              </Link>
-            </div>
-
+          <button className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 sm:px-5 sm:py-3 rounded-md transition text-sm sm:text-base">
+            VIEW ALL ARTICLES
+            <svg
+              className="ml-2 w-4 h-4 sm:w-5 sm:h-5"
+              viewBox="0 0 19 20"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                d="M5.53848 13.7123L12.9631 6.28769M12.9631 6.28769V13.7123M12.9631 6.28769H5.53848"
+                stroke="currentColor"
+                strokeWidth="1.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+              />
+            </svg>
+          </button>
         </Link>
       </motion.div>
     </section>
