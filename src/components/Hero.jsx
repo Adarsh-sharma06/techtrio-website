@@ -6,12 +6,16 @@
     return (
       <>
         <div className="marqueecontainer w-full h-screen relative overflow-hidden mt-10">
-          <div className="heading absolute top-[7%] left-1/2 -translate-x-1/2 w-full px-4 md:w-80 text-center">
-            <h1 className="text-base md:text-xl font-regular text-gray-900 dark:text-white" 
-            // style={{ width: "60%", marginLeft: "20%" }}
-             >Crafting a new paradigm of parking, one that is</h1>
-          </div>
-          <div className="slidesm absolute scale-[0.8] md:scale-[1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:w-[100%] space-y-6 md:space-y-8">
+        <div className="heading absolute top-[7%] left-1/2 -translate-x-1/2 w-full px-4 md:w-96 text-center">
+  <h1 className="text-lg md:text-2xl font-semibold text-gray-900 dark:text-white leading-snug tracking-wide">
+    Crafting a <span className="text-yellow-400">new paradigm</span> of parking, one that is
+  </h1>
+</div>
+
+
+
+          {/* hero animation */}
+          <div className="slidesm absolute  md:scale-[1] top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-full md:w-[100%] space-y-6 md:space-y-8">
             {/* First Row */}
             <div className="overflow-hidden relative">
               <div className="flex whitespace-nowrap animate-[marquee_25s_linear_infinite] px-2 md:px-0">

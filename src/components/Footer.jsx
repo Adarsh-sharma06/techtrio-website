@@ -70,7 +70,7 @@ const AnimatedWords = () => {
           variants={letterAnimations[index]}
           className={`inline-block transition-transform duration-300 
             ${[0, 5].includes(index) ? "text-5xl sm:text-6xl md:text-8xl lg:text-[10rem]" : "text-4xl sm:text-5xl md:text-7xl lg:text-[8rem]"}
-            ${index === 0 || index === 5 ? "text-orange-500" : "text-gray-900 dark:text-gray-100"}
+            ${index === 0 || index === 5 ? "text-yellow-400" : "text-gray-900 dark:text-gray-100"}
           `}
         >
           {letter}
@@ -108,7 +108,7 @@ const Footer = () => {
                   {word}
                 </motion.span>
               ))}
-              <motion.span variants={wordVariants} className="inline-block mx-1 text-yellow-500">
+              <motion.span variants={wordVariants} className="inline-block mx-1 text-yellow-400">
                 Technology.
               </motion.span>
             </motion.h3>
@@ -117,9 +117,9 @@ const Footer = () => {
             <div className="mt-6 md:mt-8 flex justify-center md:justify-start">
               <Link
                 href="/contact"
-                className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
+                className="flex items-center justify-center bg-yellow-400  text-black font-semibold px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
               >
-                LET'S GO
+                Let's Go
                 <svg
                   className="ml-2 w-4 h-4 md:w-5 md:h-5"
                   viewBox="0 0 19 20"
@@ -193,7 +193,7 @@ const Footer = () => {
       </div>
       <Link
         href="/contact"
-        className="inline-flex items-center bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-md transition text-lg"
+        className="inline-flex items-center bg-yellow-400  text-black font-semibold px-6 py-3 rounded-md transition text-lg"
       >
         CONTACT US
       </Link>

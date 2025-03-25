@@ -37,7 +37,7 @@ export default function Navbar() {
           {/* Desktop Menu */}
           <div className="hidden md:flex items-center gap-6">
 
-            {["Home", "About", "Contact", "Services", "blogs"].map((item) => {
+            {["Home", "About", "Services", "Contact"].map((item) => {
 
               const linkPath = item === "Home" ? "/" : `/${item.toLowerCase()}`;
               const isActive = pathname === linkPath;

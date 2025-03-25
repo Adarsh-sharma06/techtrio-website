@@ -4,20 +4,44 @@ import { useEffect, useRef, useState } from "react";
 import { useTheme } from "next-themes";
 import Link from "next/link";
 import { collection, getDocs } from "firebase/firestore";
-import { db } from "./../../db/firebase"; // Adjust the import path as needed
+import { db } from "./../../db/firebase"; // Adjust path as needed
 
 export default function TestimonialSection() {
   const { resolvedTheme } = useTheme();
   const [currentTheme, setCurrentTheme] = useState("light");
   const [testimonials, setTestimonials] = useState([]);
   const testimonialRefs = useRef([]);
+  const [isMobile, setIsMobile] = useState(false);
+
+  // Detect screen size changes and reset styles if needed
+  useEffect(() => {
+    const updateScreenSize = () => {
+      const mobile = window.innerWidth < 1024;
+      setIsMobile(mobile);
+
+      // Reset animation classes when switching to mobile
+      if (mobile) {
+        testimonialRefs.current.forEach((ref) => {
+          if (ref) {
+            ref.classList.remove("opacity-0", "translate-x-full", "-translate-x-full");
+            ref.classList.add("opacity-100", "translate-x-0");
+          }
+        });
+      }
+    };
+
+    updateScreenSize();
+    window.addEventListener("resize", updateScreenSize);
+
+    return () => window.removeEventListener("resize", updateScreenSize);
+  }, []);
 
   // Ensure immediate theme update
   useEffect(() => {
     if (resolvedTheme) setCurrentTheme(resolvedTheme);
   }, [resolvedTheme]);
 
-  // Dynamic styles based on theme
+  // Theme-based styles
   const themeView = currentTheme === "dark" ? "bg-black text-white" : "bg-white text-black";
   const themeText = currentTheme === "dark" ? "text-white" : "text-black";
   const themeCardBg = currentTheme === "dark" ? "bg-gray-900" : "bg-gray-100";
@@ -41,40 +65,48 @@ export default function TestimonialSection() {
     fetchTestimonials();
   }, []);
 
-  // Restore animation exactly as before (for PC only)
-  useEffect(() => {
-    if (typeof window !== "undefined" && window.innerWidth < 1024) return;  // Skip animation for mobile
+// Enable animations only for PC
+useEffect(() => {
+  if (isMobile) return; // Skip animation for mobile
 
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (entry.isIntersecting) {
-            entry.target.classList.add("opacity-100", "translate-x-0");
-            entry.target.classList.remove("opacity-0", "translate-x-full", "-translate-x-full");
+  const observer = new IntersectionObserver(
+    (entries) => {
+      entries.forEach((entry) => {
+        const index = parseInt(entry.target.dataset.index, 10); // Get testimonial index
+
+        if (entry.isIntersecting) {
+          entry.target.style.transitionDelay = `${index * 150}ms`; // Staggered effect
+          entry.target.classList.add("opacity-100", "translate-x-0", "scale-100");
+          entry.target.classList.remove("opacity-0", "-translate-x-full", "translate-x-full", "scale-90");
+        } else {
+          entry.target.style.transitionDelay = "0ms"; // Reset delay when out of view
+          entry.target.classList.add("opacity-0", "scale-90");
+          entry.target.classList.remove("opacity-100", "scale-100");
+
+          if (index % 2 === 0) {
+            entry.target.classList.add("-translate-x-0");
+            entry.target.classList.remove("translate-x-full");
           } else {
-            entry.target.classList.add("opacity-0");
-            entry.target.classList.remove("opacity-100", "translate-x-0");
-            if (entry.target.dataset.index % 2 === 0) {
-              entry.target.classList.add("-translate-x-full");
-            } else {
-              entry.target.classList.add("translate-x-full");
-            }
+            entry.target.classList.add("translate-x-full");
+            entry.target.classList.remove("-translate-x-full");
           }
-        });
-      },
-      { threshold: 0.1, rootMargin: "0px 0px -50px 0px" }
-    );
-
-    testimonialRefs.current.forEach((ref) => {
-      if (ref) observer.observe(ref);
-    });
-
-    return () => {
-      testimonialRefs.current.forEach((ref) => {
-        if (ref) observer.unobserve(ref);
+        }
       });
-    };
-  }, [testimonials]);
+    },
+    { threshold: 0.2, rootMargin: "0px 0px -50px 0px" }
+  );
+
+  testimonialRefs.current.forEach((ref) => {
+    if (ref) observer.observe(ref);
+  });
+
+  return () => {
+    testimonialRefs.current.forEach((ref) => {
+      if (ref) observer.unobserve(ref);
+    });
+  };
+}, [testimonials, isMobile]);
+
 
   return (
     <div className={`min-h-screen ${themeView} flex flex-col justify-center items-center px-6 py-12 transition-colors duration-300`}>
@@ -85,40 +117,45 @@ export default function TestimonialSection() {
       </div>
 
       {/* Testimonials Container */}
-      <div className="relative w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8">
-        {testimonials.map((testimonial, index) => (
-          <div
-            key={testimonial.id}
-            ref={(el) => (testimonialRefs.current[index] = el)}
-            data-index={index}
-            className={`max-w-md bg-transparent 
-              ${window.innerWidth >= 1024 ? "opacity-0 transition-all duration-1000 ease-in-out" : "opacity-100"} 
-              ${window.innerWidth >= 1024 ? (index % 2 === 0 ? "-translate-x-full" : "translate-x-full") : "translate-x-0"}
-              ${testimonials.length % 2 !== 0 && index === testimonials.length - 1 ? "md:col-span-2 md:mx-auto" : ""}`}
-          >
-            <p className={`text-lg font-semibold ${themeCardBg} px-6 py-4 rounded-lg shadow-lg`}>
-              “{testimonial.quote}”
-            </p>
-            <div className="flex items-center mt-4">
-              <img
-                src={testimonial.image}
-                alt={testimonial.name}
-                className="w-10 h-10 rounded-full object-cover"
-              />
-              <div className="ml-3">
-                <p className={`font-bold ${themeText}`}>{testimonial.name}</p>
-                <p className={`${themeRoleText} text-sm`}>{testimonial.role}</p>
-              </div>
-            </div>
-          </div>
-        ))}
+      <div className="relative w-full max-w-6xl grid grid-cols-1 md:grid-cols-2 gap-8 overflow-hidden">
+      {testimonials.map((testimonial, index) => (
+  <div
+    key={testimonial.id}
+    ref={(el) => (testimonialRefs.current[index] = el)}
+    data-index={index}
+    className={`max-w-md transition-all duration-1000 ease-in-out rounded-lg shadow-lg 
+      ${isMobile ? "opacity-100 translate-x-0" : "opacity-0"}
+      ${!isMobile && index % 2 === 0 ? "-translate-x-full" : ""}
+      ${!isMobile && index % 2 !== 0 ? "translate-x-full" : ""}
+      ${testimonials.length % 2 !== 0 && index === testimonials.length - 1 ? "md:col-span-2 md:mx-auto" : ""}
+      ${index % 2 === 0 ? "bg-gray-200 dark:bg-gray-800" : "bg-white dark:bg-gray-900"}
+    `}
+    style={{ width: "100%" }} // Prevent extra width issues
+  >
+    <p className={`text-sm font-semibold px-6 py-4`}>
+      “{testimonial.quote}”
+    </p>
+    <div className="flex items-center mt-4 px-6 pb-4">
+      <img
+        src={testimonial.image}
+        alt={testimonial.name}
+        className="w-10 h-10 rounded-full object-cover"
+      />
+      <div className="ml-3">
+        <p className={`font-bold ${themeText}`}>{testimonial.name}</p>
+        <p className={`${themeRoleText} text-sm`}>{testimonial.role}</p>
+      </div>
+    </div>
+  </div>
+))}
+
       </div>
 
-      {/* LET'S GO Button - Now at the Bottom and Centered */}
+      {/* LET'S GO Button - Centered */}
       <div className="mt-12 flex justify-center">
         <Link
           href="/contact"
-          className="flex items-center justify-center bg-orange-500 hover:bg-orange-600 text-white px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
+          className="flex items-center justify-center bg-yellow-400  text-black font-semibold px-4 py-2 md:px-5 md:py-3 rounded-md transition text-sm md:text-base"
         >
           See Projects
           <svg
