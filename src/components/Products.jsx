@@ -1,39 +1,43 @@
-"use client"; // Ensures this is a client component
+"use client";
 
 import { useState } from "react";
 import Image from "next/image";
 
 const Products = () => {
-  const [activeTab, setActiveTab] = useState("DataAnalytics");
+  const [activeTab, setActiveTab] = useState("Web Services");
 
   const tabs = [
     {
-      id: "DataAnalytics",
-      label: "Data Analytics and Automation",
-      img: "https://elementor.com/cdn-cgi/image/f=auto,w=604/https://elementor.com/wp-content/uploads/2021/05/developer-1.png",
+      id: "Web Services",
+      buttonLabel: "Web Services",
+      label: "Web Design & Development",
+      img: "/webapp.jpg",
       description:
-        "We provide cutting-edge data solutions, helping financial institutions optimize processes through advanced analytics, AI, and automation.",
+        "We offer end-to-end web solutions including responsive design, full-stack development, SEO optimization, and scalable deployment tailored to your business needs.",
     },
     {
-      id: "CloudServices",
-      label: "Cloud Services",
-      img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/cloud-services-tab.png",
+      id: "Car parking",
+      buttonLabel: "Car parking",
+      label: "Car parking making parking smarter, simpler, and stress-free.",
+      img: "/Parking.jpg",
       description:
-        "Secure and scalable cloud solutions tailored to your needs, ensuring seamless data integration and business agility.",
+        "Our car parking system is built to bring order to chaos. Whether you're managing a mall, office complex, apartment building, or public parking area—we help you control traffic flow, reduce congestion, and improve the entire parking experience.",
     },
     {
-      id: "AppModernization",
-      label: "Application Modernization",
-      img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/data-analytics-automation.png",
+      id: "Car tracking ",
+      buttonLabel: "Vehicle Tracking",
+      label: "Know where your vehicles are—anytime, anywhere.",
+      img: "/tracking3.jpg",
       description:
-        "Transform legacy systems into modern, efficient applications that enhance operational efficiency and user experience.",
+        "TechTrio’s Car Tracking System gives you real-time visibility over your vehicles, helping you stay in control, improve safety, and reduce operational headaches. Whether you manage a fleet or just want to keep an eye on a personal vehicle, we’ve got you covered.",
     },
     {
-      id: "InfraServices",
-      label: "Infra Services",
-      img: "https://www.nucleussoftware.com/wp-content/uploads/2023/12/cloud-services-tab.png",
+      id: "IMS ",
+      buttonLabel: "IMS ",
+      label: "Track, manage, and control your inventory—smarter and faster.",
+      img: "/ims2.jpg",
       description:
-        "Robust IT infrastructure solutions ensuring security, performance, and scalability for financial institutions.",
+        "TechTrio’s Inventory Management System is built to simplify how you handle stock. Whether you run a store, warehouse, or multi-location business, our IMS helps you stay organized, avoid stockouts, and reduce waste—all in one easy-to-use platform.",
     },
   ];
 
@@ -43,7 +47,7 @@ const Products = () => {
         Services Portfolio for Financial Institutions
       </h1>
 
-      {/* Tabs - Scrollable on small screens */}
+      {/* Tabs */}
       <div className="w-full m-4 overflow-x-auto">
         <div className="flex space-x-2 md:space-x-8 bg-black dark:bg-gray-800 p-4 rounded-full w-max mx-auto">
           {tabs.map((tab) => (
@@ -56,41 +60,41 @@ const Products = () => {
                   : "text-white dark:text-white hover:bg-white hover:text-black dark:hover:bg-black"
               }`}
             >
-              {tab.label}
+              {tab.buttonLabel}
             </button>
           ))}
         </div>
       </div>
 
-      {/* Content Section */}
-      <div className="mt-10 p-10 max-w-5xl w-full flex flex-col items-center">
+      {/* Content */}
+      <div className="mt-10 px-4 max-w-6xl w-full flex flex-col items-center">
         {tabs
           .filter((tab) => tab.id === activeTab)
-          .map((tab, index) => (
+          .map((tab) => (
             <div
               key={tab.id}
-              className={`flex flex-col md:flex-row items-center ${
-                index % 2 === 0 ? "md:flex-row" : "md:flex-row-reverse"
-              } justify-between gap-6 w-full`}
+              className="flex flex-col md:flex-row items-start justify-between gap-8 w-full"
             >
-              {/* Image Section */}
-              <div className="w-full md:w-1/2 flex justify-center">
+              {/* Image */}
+              <div className="w-full md:w-1/2">
                 <Image
                   src={tab.img}
                   alt={tab.label}
-                  width={400}
-                  height={250}
-                  className="rounded-lg w-full max-w-sm md:max-w-md"
+                  width={600}
+                  height={400}
+                  className="rounded-lg w-full h-auto object-cover"
                 />
               </div>
 
-              {/* Text Content */}
-              <div className="w-full md:w-1/2 text-center md:text-left px-4">
-                <h2 className="text-xl md:text-2xl font-bold mb-3">{tab.label}</h2>
-                <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base">
-                  {tab.description}
-                </p>
-              </div>
+              {/* Text Section */}
+              <div className="w-full md:w-1/2 flex flex-col justify-center md:min-h-[400px] mt-4 md:mt-0">
+  <h2 className="text-lg md:text-2xl font-bold mb-2 md:mb-4 text-center md:text-left">
+    {tab.label}
+  </h2>
+  <p className="text-gray-700 dark:text-gray-300 text-sm md:text-base text-center md:text-left">
+    {tab.description}
+  </p>
+</div>
             </div>
           ))}
       </div>

@@ -33,7 +33,7 @@ export default function Services() {
 <AnimationList/>
 
       {/* Services Section */}
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      {/* <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
         <h1 className="text-4xl font-bold text-gray-900 dark:text-white mb-6">
           Our Services
         </h1>
@@ -47,7 +47,7 @@ export default function Services() {
             </div>
           ))}
         </div>
-      </div>
+      </div> */}
 
       {/* ✅ Deliverables Section - Mobile & Desktop Friendly */}
       <section className="bg-gray-100 dark:bg-black text-black dark:text-white mx-auto px-6 md:px-10 py-16 md:py-24">

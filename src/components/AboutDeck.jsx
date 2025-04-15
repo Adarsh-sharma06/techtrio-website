@@ -74,32 +74,28 @@ export default function Deck() {
   });
 
   return (
- 
-<div className="flex flex-col lg:flex-row items-center justify-center min-h-screen transition-colors duration-300 bg-white dark:bg-gray-900 text-black dark:text-white px-6 lg:px-16">
+<div className="min-h-screen w-full flex flex-col-reverse lg:flex-row items-center justify-between gap-8 px-6 lg:px-16 py-12 bg-white dark:bg-gray-900 text-black dark:text-white transition-colors duration-300">
   
   {/* Left Section - About Us */}
-  <div className="w-full lg:w-1/2 flex flex-col justify-center items-center text-center lg:text-left">
-    <h1 className="text-3xl sm:text-4xl font-bold mb-4 max-w-md">
+  <div className="w-full lg:w-1/2 flex flex-col justify-center items-center  text-center lg:text-left space-y-4">
+    <h1 className="text-3xl sm:text-4xl font-bold max-w-md">
       We didn't reinvent the wheel
     </h1>
     <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-md">
-      We are strategists, designers, and developers. Innovators and problem solvers. 
-      Small enough to be simple and quick, but big enough to deliver the scope you want 
-      at the pace you need.
+      We are strategists, designers, and developers. Innovators and problem solvers. Small enough to be simple and quick, but big enough to deliver the scope you want at the pace you need.
     </p>
-    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-md mt-4">
-      We are strategists, designers, and developers. Innovators and problem solvers. 
-      Small enough to be simple and quick.
+    <p className="text-base sm:text-lg text-gray-600 dark:text-gray-300 max-w-md">
+      We’re small enough to stay flexible and move fast—but experienced enough to handle big ideas and deliver real results. With the right mix of creativity, tech, and strategy, we bring your vision to life—on time, and without the hassle.
     </p>
   </div>
 
-  {/* Right Section - Stack of Cards (Hidden on Mobile) */}
-  <div className="hidden sm:flex w-full lg:w-1/2 justify-center items-center relative mt-12 lg:mt-0">
+  {/* Right Section - Stack of Cards */}
+  <div className="w-full lg:w-1/2 flex justify-center items-center relative h-[400px] sm:h-[420px] md:h-[450px]">
     {props.map(({ x, y, rot, scale }, i) => (
       <animated.div key={i} className="absolute w-56 h-80 sm:w-64 sm:h-86" style={{ x, y }}>
         <animated.div
           {...bind(i)}
-          className="w-56 h-80 sm:w-70 sm:h-96 bg-white dark:bg-gray-700 bg-cover bg-center shadow-2xl rounded-lg cursor-pointer"
+          className="w-56 h-80 sm:w-64 sm:h-96 bg-white dark:bg-gray-700 bg-cover bg-center shadow-2xl rounded-lg cursor-pointer"
           style={{
             transform: interpolate([rot, scale], trans),
             backgroundImage: `url(${cards[i]})`,
@@ -108,7 +104,6 @@ export default function Deck() {
       </animated.div>
     ))}
   </div>
-
 </div>
 
   
